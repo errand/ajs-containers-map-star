@@ -47,8 +47,11 @@ export default class Settings {
    * @return {Map} new Map of user settings
    */
   getSettings() {
-    for (let entry of this.userSettings) {
-      console.log(entry);
+    for (let [key, value] of this.defaultSettings) {
+      if(!this.userSettings.get(key)){
+        this.userSettings.set(key, value);
+      }
     }
+    return this.userSettings;
   }
 }
