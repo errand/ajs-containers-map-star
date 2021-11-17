@@ -22,36 +22,31 @@ export default class Settings {
    * @return {string} value - the value of the userSettings Map
    */
   set(key, value) {
-      switch (key) {
-        case 'theme':
-          ['dark', 'light', 'gray'].includes(value)
-            ? this.userSettings.set(key, value)
-            : ( function() { throw new Error(`Bad value ${value} for Theme settings`); }());
-          break;
-        case 'music':
-          ['trance', 'pop', 'rock', 'chillout', 'off'].includes(value)
-            ? this.userSettings.set(key, value)
-            : ( function() { throw new Error(`Bad value ${value} for Music settings`); }());
-          break;
-        case 'difficulty':
-          ['easy', 'normal', 'hard', 'nightmare'].includes(value)
-            ? this.userSettings.set(key, value)
-            : ( function() { throw new Error(`Bad value ${value} for Difficulty settings`); }());
-          break;
-        default: ( function() { throw new Error(`Setting ${key} doesn't exist`); }());
-      }
+    switch (key) {
+      case 'theme':
+        ['dark', 'light', 'gray'].includes(value)
+          ? this.userSettings.set(key, value)
+          : (function() { throw new Error (`Bad value ${value} for Theme settings`); }());
+        break;
+      case 'music':
+        ['trance', 'pop', 'rock', 'chillout', 'off'].includes(value)
+          ? this.userSettings.set(key, value)
+          : (function() { throw new Error (`Bad value ${value} for Music settings`); }());
+        break;
+      case 'difficulty':
+        ['easy', 'normal', 'hard', 'nightmare'].includes(value)
+          ? this.userSettings.set(key, value)
+          : (function() { throw new Error (`Bad value ${value} for Difficulty settings`); }());
+        break;
+      default: (function() { throw new Error (`Setting ${key} doesn't exist`); }());
     }
+  }
 
   /**
    * Compare default and user settings and return new Map
    * @return {Map} new Map of user settings
    */
   getSettings() {
-    for (let [key, value] of this.defaultSettings) {
-      if(!this.userSettings.get(key)){
-        this.userSettings.set(key, value);
-      }
-    }
-    return this.userSettings;
+    return new Map([...this.defaultSettings, ...this.userSettings]);
   }
 }
